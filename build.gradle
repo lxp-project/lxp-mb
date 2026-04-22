@@ -1,5 +1,18 @@
 plugins {
     id 'java'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.12.17'
+    configFile = file('config/checkstyle/google_checks.xml')
+    ignoreFailures = false
+    showViolations = true
+}
+
+// 테스트 코드는 Checkstyle 검사 제외
+checkstyleTest {
+    enabled = false
 }
 
 group = 'com.example'
@@ -13,6 +26,10 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:6.0.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Source: https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.8'
+    // Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
 }
 
 test {
